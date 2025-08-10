@@ -95,20 +95,38 @@
             <button onclick="fetchResults()">提交</button>
         </div>
         <div id="results" class="results">
-            <h3>分析结果</h3>
-            <p id="analysis"></p>
-            <h3>饼图</h3>
-            <img id="pieChart" src="static/DAO.png" alt="饼图">
-            <h3>柱状图</h3>
-            <img id="barChart" src="static/sany.png" alt="柱状图">
+            <div id="resultContent"></div>
+        </div>
+        <!-- 出品商logo -->
+        <div style="margin-top:60px; text-align:center;">
+            <img src="static/DAO.png" alt="DAO Logo" style="height:80px; margin:0 20px;">
+            <img src="static/sany.png" alt="SANY Logo" style="height:80px; margin:0 20px;">
         </div>
     </main>
     <script>
         function fetchResults() {
-            // 直接显示预存好的内容和图片
-            document.getElementById('analysis').innerText = '这是预存好的分析结果示例。您可以根据实际需求修改此内容。';
-            document.getElementById('pieChart').src = 'static/DAO.png';
-            document.getElementById('barChart').src = 'static/sany.png';
+            const val = document.getElementById('question').value.trim();
+            const resultDiv = document.getElementById('resultContent');
+            let html = '';
+            if (val === '问题类别') {
+                html += '<h3>分析结果</h3>';
+                html += '<p>问题类别比例分析如下，包含饼状图、柱状图和月度分布图。</p>';
+                html += '<h3>饼状图</h3>';
+                html += '<img src="static/pie.png" alt="问题类别饼状图">';
+                html += '<h3>柱状图</h3>';
+                html += '<img src="static/bar.png" alt="问题类别柱状图">';
+                html += '<h3>月度分布图</h3>';
+                html += '<img src="static/month.png" alt="问题类别月度分布图">';
+            } else if (val === '评价') {
+                html += '<h3>分析结果</h3>';
+                html += '<p>4-6月评价维度变化分析如下。</p>';
+                html += '<h3>评价折线图</h3>';
+                html += '<img src="static/score.png" alt="评价折线图">';
+            } else {
+                html += '<div style="margin:40px 0; font-size:2.2rem; font-weight:bold; color:#0052D9; animation: shake 0.7s infinite alternate;">未识别关键字</div>';
+                html += '<style>@keyframes shake { 0%{letter-spacing:2px;} 100%{letter-spacing:12px;} }</style>';
+            }
+            resultDiv.innerHTML = html;
             document.getElementById('results').style.display = 'block';
         }
     </script>
