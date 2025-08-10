@@ -100,8 +100,8 @@
         </div>
     </main>
     <script>
-    // 图表样式调整（适中并列，两张图每张宽度48%，最大350px）
-    const chartStyle = 'style="width:48%;max-width:350px;display:inline-block;vertical-align:top;margin:10px;"';
+    // 图表样式调整（加大一倍，两张图每张宽度96%，最大700px）
+    const chartStyle = 'style="width:96%;max-width:700px;display:block;vertical-align:top;margin:18px auto;"';
         // 关键词与图片映射
         // 图表内容和解释
         const chartMap = {
@@ -152,14 +152,14 @@
                         if (chartMap[key].length >= 2) {
                             html += '<div style="display:flex;justify-content:center;align-items:flex-start;flex-wrap:wrap;">';
                             chartMap[key].slice(0,2).forEach(c => {
-                                html += `<div style='width:48%;max-width:350px;margin:10px;'><div style='font-size:1rem;margin-bottom:6px;'>${c.title}</div><img src='${c.img}' alt='${c.alt}' style='width:100%;'><div style='font-size:0.95rem;color:#555;margin-top:6px;'>${c.explain}</div></div>`;
+                                html += `<div style='width:96%;max-width:700px;margin:18px auto;'><div style='font-size:1rem;margin-bottom:6px;'>${c.title}</div><img src='${c.img}' alt='${c.alt}' style='width:100%;'><div style='font-size:0.95rem;color:#555;margin-top:6px;'>${c.explain}</div></div>`;
                             });
                             html += '</div>';
                         }
                         // 其余图单独展示
                         if (chartMap[key].length > 2) {
                             chartMap[key].slice(2).forEach(c => {
-                                html += `<div style='width:48%;max-width:350px;margin:10px;display:inline-block;'><div style='font-size:1rem;margin-bottom:6px;'>${c.title}</div><img src='${c.img}' alt='${c.alt}' style='width:100%;'><div style='font-size:0.95rem;color:#555;margin-top:6px;'>${c.explain}</div></div>`;
+                                html += `<div style='width:96%;max-width:700px;margin:18px auto;display:block;'><div style='font-size:1rem;margin-bottom:6px;'>${c.title}</div><img src='${c.img}' alt='${c.alt}' style='width:100%;'><div style='font-size:0.95rem;color:#555;margin-top:6px;'>${c.explain}</div></div>`;
                             });
                         }
                     });
