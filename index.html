@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能分析系统</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            position: relative;
+        }
+        /* 水印样式 */
+        body::before {
+            content: "工业智能与系统优化国家级前沿科学中心";
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            transform: rotate(-45deg);
+            font-size: 2rem;
+            color: rgba(0, 0, 0, 0.1);
+            z-index: -1;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+        body::after {
+            content: "工业智能与系统优化国家级前沿科学中心";
+            position: absolute;
+            top: 60%;
+            left: 30%;
+            transform: rotate(-45deg);
+            font-size: 2rem;
+            color: rgba(0, 0, 0, 0.1);
+            z-index: -1;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+        header {
+            background-color: #0052D9;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+        .background-info {
+            margin: 20px auto;
+            max-width: 800px;
+            text-align: left;
+            font-size: 1.2rem;
+            color: #333;
+        }
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #007BFF, #0056D9);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .button:hover {
+            background: #0056D9;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+        .button:active {
+            transform: translateY(2px);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>智能分析系统</h1>
+    </header>
+    <main>
+        <div class="background-info">
+            <p>为了更好地满足三一重工客户的多样化需求，东北大学DAO实验室（工业智能与系统优化国家级前沿科学中心）设计并开发了这款智能分析系统。</p>
+            <p>该系统基于先进的人工智能算法和大数据分析技术，能够高效记录并分析设备运行数据、客户反馈信息以及市场动态，为企业提供精准的决策支持。</p>
+            <p>系统的核心目标是通过智能化手段优化工业流程，提升生产效率，助力企业在全球市场中保持竞争优势。</p>
+        </div>
+        <!-- 可选：如需展示图片，可添加如下示例 -->
+        <!-- <img src="static/DAO.png" alt="系统LOGO" style="max-width:300px;margin:20px auto;display:block;"> -->
+        <button class="button" onclick="location.href='/assistant'">进入智能分析助手</button>
+    </main>
+</body>
+</html>

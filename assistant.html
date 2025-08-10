@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能分析助手</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+        /* 连续水印样式 */
+        .watermark {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .watermark span {
+            position: absolute;
+            color: rgba(0, 0, 0, 0.08);
+            font-size: 1.2rem;
+            transform: rotate(-30deg);
+            white-space: nowrap;
+        }
+        header {
+            background-color: #0052D9;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .search-box {
+            margin: 50px auto;
+            max-width: 600px;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 20px;
+            font-size: 1.5rem;
+            border: 2px solid #0052D9;
+            border-radius: 10px;
+        }
+        .search-box button {
+            margin-top: 20px;
+            padding: 15px 30px;
+            background: #0052D9;
+            color: white;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .search-box button:hover {
+            background: #007BFF;
+        }
+        .search-box button:active {
+            transform: translateY(2px);
+        }
+        .results {
+            margin-top: 30px;
+            display: none; /* 初始隐藏结果 */
+        }
+        .results img {
+            max-width: 80%;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="watermark">
+        <!-- 多个水印，密集排列 -->
+        <span style="top:5%;left:5%;">工业智能与系统优化国家级前沿科学中心</span>
+        <span style="top:15%;left:15%;">工业智能与系统优化国家级前沿科学中心</span>
+        <span style="top:25%;left:25%;">工业智能与系统优化国家级前沿科学中心</span>
+        <span style="top:35%;left:35%;">工业智能与系统优化国家级前沿科学中心</span>
+        <span style="top:45%;left:45%;">工业智能与系统优化国家级前沿科学中心</span>
+        <span style="top:55%;left:55%;">工业智能与系统优化国家级前沿科学中心</span>
+        <span style="top:65%;left:65%;">工业智能与系统优化国家级前沿科学中心</span>
+        <span style="top:75%;left:75%;">工业智能与系统优化国家级前沿科学中心</span>
+    </div>
+    <header>
+        <h1>智能分析助手</h1>
+    </header>
+    <main>
+        <div class="search-box">
+            <input type="text" id="question" placeholder="请输入关键词以开始分析">
+            <button onclick="fetchResults()">提交</button>
+        </div>
+        <div id="results" class="results">
+            <h3>分析结果</h3>
+            <p id="analysis"></p>
+            <h3>饼图</h3>
+            <img id="pieChart" src="static/DAO.png" alt="饼图">
+            <h3>柱状图</h3>
+            <img id="barChart" src="static/sany.png" alt="柱状图">
+        </div>
+    </main>
+    <script>
+        function fetchResults() {
+            const question = document.getElementById('question').value;
+            fetch('/assistant', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ question })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('analysis').innerText = data['分析'] || '';
+                document.getElementById('pieChart').src = data['饼图'] ? 'data:image/png;base64,' + data['饼图'] : '';
+                document.getElementById('barChart').src = data['柱状图'] ? 'data:image/png;base64,' + data['柱状图'] : '';
+                document.getElementById('results').style.display = 'block'; // 显示结果
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
