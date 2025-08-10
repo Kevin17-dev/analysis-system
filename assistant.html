@@ -105,22 +105,11 @@
     </main>
     <script>
         function fetchResults() {
-            const question = document.getElementById('question').value;
-            fetch('/assistant', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ question })
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('analysis').innerText = data['分析'] || '';
-                document.getElementById('pieChart').src = data['饼图'] ? 'data:image/png;base64,' + data['饼图'] : '';
-                document.getElementById('barChart').src = data['柱状图'] ? 'data:image/png;base64,' + data['柱状图'] : '';
-                document.getElementById('results').style.display = 'block'; // 显示结果
-            })
-            .catch(error => console.error('Error:', error));
+            // 直接显示预存好的内容和图片
+            document.getElementById('analysis').innerText = '这是预存好的分析结果示例。您可以根据实际需求修改此内容。';
+            document.getElementById('pieChart').src = 'static/DAO.png';
+            document.getElementById('barChart').src = 'static/sany.png';
+            document.getElementById('results').style.display = 'block';
         }
     </script>
 </body>
