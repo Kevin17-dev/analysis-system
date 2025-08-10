@@ -13,13 +13,21 @@
             position: relative;
         }
         /* 水印样式 */
+            header {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                background-color: #0052D9;
+                color: white;
+                padding: 20px;
+            }
         body::before {
             content: "工业智能与系统优化国家级前沿科学中心";
             position: absolute;
-            top: 20%;
-            left: 10%;
-            transform: rotate(-45deg);
-            font-size: 2rem;
+        <header style="display:flex;align-items:center;justify-content:flex-start;background-color:#0052D9;color:white;padding:20px;">
+            <img src="static/DAO.png" alt="DAO Logo" style="height:60px;max-width:120px;margin-right:18px;vertical-align:middle;background:transparent;">
+            <h1 style="margin:0;font-size:2.2rem;">智能分析系统</h1>
+        </header>
             color: rgba(0, 0, 0, 0.1);
             z-index: -1;
             white-space: nowrap;
