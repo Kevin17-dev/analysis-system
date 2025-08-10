@@ -86,24 +86,51 @@
         <span style="top:65%;left:65%;">工业智能与系统优化国家级前沿科学中心</span>
         <span style="top:75%;left:75%;">工业智能与系统优化国家级前沿科学中心</span>
     </div>
+    <!-- 顶部居中 DAO logo -->
+    <div style="width:100%;text-align:center;margin-top:30px;margin-bottom:10px;">
+        <img src="static/DAO.png" alt="DAO Logo" style="height:110px;max-width:320px;">
+    </div>
     <header>
         <h1>智能分析助手</h1>
     </header>
     <main>
         <div class="search-box">
-            <input type="text" id="question" placeholder="请输入关键词以开始分析">
+            <input type="text" id="question" placeholder="请输入：不满、问题类别、评价等关键词" style="color:#888;">
             <button onclick="fetchResults()">提交</button>
         </div>
         <div id="results" class="results">
             <div id="resultContent"></div>
         </div>
-        <!-- 出品商logo -->
-        <div style="margin-top:60px; text-align:center;">
-            <img src="static/DAO.png" alt="DAO Logo" style="height:80px; margin:0 20px;">
-            <img src="static/sany.png" alt="SANY Logo" style="height:80px; margin:0 20px;">
-        </div>
     </main>
     <script>
+        // 图表样式调整
+        const chartStyle = 'style="width:45%;max-width:260px;display:inline-block;vertical-align:top;margin:10px;"';
+        // 关键词与图片映射
+        const chartMap = {
+            '不满': [
+                {title:'不满饼状图', img:'static/img_v3_02o1_d70c88de-cab4-4d4b-813f-6fbae5a0ffcm.png', alt:'不满饼状图'},
+                {title:'不满柱状图', img:'static/img_v3_02o1_fac434d0-980f-47bb-ab7a-161e46fafc4m.png', alt:'不满柱状图'}
+            ],
+            '问题类别': [
+                {title:'问题类别饼状图', img:'static/img_v3_02o1_4373f486-83ef-4cd8-955f-90aec111a56m.png', alt:'问题类别饼状图'},
+                {title:'问题类别柱状图', img:'static/img_v3_02o1_2a7e7ee4-ecc0-428a-90c4-c0c4940fab9m.png', alt:'问题类别柱状图'},
+                {title:'问题类别折线图', img:'static/img_v3_02o1_3e0693f5-2be6-45eb-b6e1-1bb615269e9m.png', alt:'问题类别折线图'}
+            ],
+            '评价': [
+                {title:'评价变化图', img:'static/img_v3_02o2_2e8c2fb6-2780-4bb5-8c98-ffa4763bb0am.png', alt:'评价变化图'}
+            ]
+        };
+        // 关键词近似匹配
+        function getMatchedKeys(val) {
+            const keys = Object.keys(chartMap);
+            let matched = [];
+            keys.forEach(k => {
+                if (val.includes(k) || (k==='不满' && /不满|投诉|抱怨/.test(val)) || (k==='问题类别' && /类别|类型|问题|种类/.test(val)) || (k==='评价' && /评价|分数|满意|打分/.test(val))) {
+                    matched.push(k);
+                }
+            });
+            return matched;
+        }
         function fetchResults() {
             const val = document.getElementById('question').value.trim();
             const resultDiv = document.getElementById('resultContent');
@@ -118,28 +145,32 @@
             setTimeout(() => {
                 clearInterval(dotInterval);
                 let html = '';
-                // 用相对路径，适配 GitHub Pages
-                if (val === '问题类别') {
+                const matched = getMatchedKeys(val);
+                if (matched.length > 0) {
                     html += '<h3>分析结果</h3>';
-                    html += '<p>问题类别比例分析如下，包含饼状图、柱状图和折线图。</p>';
-                    html += '<h3>饼状图</h3>';
-                    html += '<img src="static/img_v3_02o1_4373f486-83ef-4cd8-955f-90aec111a56m.png" alt="问题类别饼状图">';
-                    html += '<h3>柱状图</h3>';
-                    html += '<img src="static/img_v3_02o1_2a7e7ee4-ecc0-428a-90c4-c0c4940fab9m.png" alt="问题类别柱状图">';
-                    html += '<h3>折线图</h3>';
-                    html += '<img src="static/img_v3_02o1_3e0693f5-2be6-45eb-b6e1-1bb615269e9m.png" alt="问题类别折线图">';
-                } else if (val === '评价') {
-                    html += '<h3>分析结果</h3>';
-                    html += '<p>4-6月评价维度变化分析如下。</p>';
-                    html += '<h3>评价变化图</h3>';
-                    html += '<img src="static/img_v3_02o2_2e8c2fb6-2780-4bb5-8c98-ffa4763bb0am.png" alt="评价变化图">';
-                } else if (val.includes('不满')) {
-                    html += '<h3>分析结果</h3>';
-                    html += '<p>前十名客户的不满系数分析如下，左侧为饼状图，右侧为柱状图。</p>';
-                    html += '<h3>不满饼状图</h3>';
-                    html += '<img src="static/img_v3_02o1_d70c88de-cab4-4d4b-813f-6fbae5a0ffcm.png" alt="不满饼状图">';
-                    html += '<h3>不满柱状图</h3>';
-                    html += '<img src="static/img_v3_02o1_fac434d0-980f-47bb-ab7a-161e46fafc4m.png" alt="不满柱状图">';
+                    matched.forEach(key => {
+                        html += `<p><b>${key}相关分析：</b></p>`;
+                        // 两张图并列展示
+                        if (chartMap[key].length >= 2) {
+                            html += '<div style="display:flex;justify-content:center;align-items:flex-start;flex-wrap:wrap;">';
+                            chartMap[key].slice(0,2).forEach(c => {
+                                html += `<div style='width:45%;max-width:260px;margin:10px;'><div style='font-size:1rem;margin-bottom:6px;'>${c.title}</div><img src='${c.img}' alt='${c.alt}' style='width:100%;'></div>`;
+                            });
+                            html += '</div>';
+                        }
+                        // 其余图单独展示
+                        if (chartMap[key].length > 2) {
+                            chartMap[key].slice(2).forEach(c => {
+                                html += `<div style='width:45%;max-width:260px;margin:10px;display:inline-block;'><div style='font-size:1rem;margin-bottom:6px;'>${c.title}</div><img src='${c.img}' alt='${c.alt}' style='width:100%;'></div>`;
+                            });
+                        }
+                    });
+                    // 文字解释部分
+                    html += `<div style='margin-top:30px;font-size:1.1rem;color:#333;text-align:left;max-width:600px;margin-left:auto;margin-right:auto;'>`
+                        +`<b>检索说明：</b>本次检索根据您的输入内容，智能识别并展示相关分析图表。`
+                        +`<br>检索内容涵盖：不满、问题类别、评价等维度，帮助您快速了解客户反馈与趋势。`
+                        +`<br><b>未来展望：</b>我们将持续优化分析模型，提升识别准确率，助力企业智能决策与服务升级。`
+                        +`</div>`;
                 } else {
                     html += '<div style="margin:40px 0; font-size:2.2rem; font-weight:bold; color:#0052D9; animation: shake 0.7s infinite alternate;">未识别关键字</div>';
                     html += '<style>@keyframes shake { 0%{letter-spacing:2px;} 100%{letter-spacing:12px;} }</style>';
