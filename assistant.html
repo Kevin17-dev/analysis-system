@@ -122,6 +122,13 @@
                 html += '<p>4-6月评价维度变化分析如下。</p>';
                 html += '<h3>评价折线图</h3>';
                 html += '<img src="static/score.png" alt="评价折线图">';
+            } else if (val.includes('不满')) {
+                html += '<h3>分析结果</h3>';
+                html += '<p>前十名客户的不满系数分析如下，左侧为饼状图，右侧为柱状图。</p>';
+                html += '<h3>饼状图</h3>';
+                html += '<img src="static/pie.png" alt="不满系数饼状图">';
+                html += '<h3>柱状图</h3>';
+                html += '<img src="static/bar.png" alt="不满系数柱状图">';
             } else {
                 html += '<div style="margin:40px 0; font-size:2.2rem; font-weight:bold; color:#0052D9; animation: shake 0.7s infinite alternate;">未识别关键字</div>';
                 html += '<style>@keyframes shake { 0%{letter-spacing:2px;} 100%{letter-spacing:12px;} }</style>';
